@@ -1,8 +1,11 @@
+import { BtnProvider, useBtn } from '@/contexts/BtnContext';
 import classNames from 'classnames';
 import { Heart, UserRoundPlus } from 'lucide-react';
-import React, { useState } from 'react';
+import React from 'react';
 
-const BtnLike = ({ isLiked, toggleLike }) => {
+const BtnLike = () => {
+    const { isLiked, toggleLike } = useBtn();
+
     return (
         <button onClick={toggleLike} className='flex gap-2'>
             <Heart fill={isLiked ? 'red' : 'none'} />
@@ -10,26 +13,22 @@ const BtnLike = ({ isLiked, toggleLike }) => {
         </button>
     );
 };
-const BtnFollow = ({ isLiked, toggleLike }) => {
+const BtnFollow = () => {
+    const { isLiked, toggleLike } = useBtn();
     return (
-        <button onClick={toggleLike} className={classNames('flex gap-2', isLiked ? 'bg-green-400' : ' bg-gray-50')}>
-            <UserRoundPlus fill={isLiked ? 'green' : 'none'} />
+        <button onClick={toggleLike} className={classNames('flex gap-2', isLiked ? ' bg-gray-50' : 'bg-green-400')}>
+            <UserRoundPlus fill={isLiked ? 'none' : 'green'} />
             +팔로우
         </button>
     );
 };
 
 const Like = () => {
-    const [isLiked, setisLiked] = useState(false);
-    const toggleLike = () => {
-        setisLiked(!isLiked);
-    };
     return (
-        <div>
-            {/* 하트 토글 버튼 */}
-            <BtnLike isLiked={isLiked} toggleLike={toggleLike} />
-            <BtnFollow isLiked={isLiked} toggleLike={toggleLike} />
-        </div>
+        <>
+            <BtnLike />
+            <BtnFollow />
+        </>
     );
 };
 
